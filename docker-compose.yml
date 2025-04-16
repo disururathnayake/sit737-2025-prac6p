@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: node-web-app
+    restart: always
+    ports:
+      - "3000:3040"
+    environment:
+      NODE_ENV: development
+      PORT: 3040
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3040/add?num1=5&num2=2"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
